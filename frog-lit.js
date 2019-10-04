@@ -1,6 +1,9 @@
 import { LitElement, html, css } from 'lit-element';
 
 const CSS_STYLE_FROG = 'frog';
+const DEFAULT_BOXES = 5;
+const DEFAULT_SELECTED = 1;
+const DEFAULT_CONFIG = false;
 class FrogLit extends LitElement {
   static get properties() {
     return {
@@ -23,15 +26,29 @@ class FrogLit extends LitElement {
   }
   constructor () {
     super();
-    this.boxes = 5;
-    this.selected = 1;
-    this.config = false;
+    this.boxes = DEFAULT_BOXES;
+    this.selected = DEFAULT_SELECTED;
+    this.config = DEFAULT_CONFIG;
     this.generateObjectBoxes();
   }
-  changeSelected (newPosition, oldPosition) {
+  attributeChangedCallback(name, oldval, newval) {
+    super.attributeChangedCallback(name, oldval, newval);
+    this.controlChanges(name, oldval, newval);
+  }
+  controlChanges (name, oldval, newval) {
+    switch (name) {
+      case 'boxes': this.controlChangeBoxes(newval, oldval); break;
+      case 'selected': this.changeSelected(newval, oldval); break;
+    }
+  }
+  controlChangeBoxes (newval, oldval) {
+    if (oldval!==null) this.changeBoxes(newval, oldval);
+    else this.generateObjectBoxes();
+  }
+  changeSelected (newPosition, oldPosition=DEFAULT_BOXES) {
     this.changeSelectedByObjects(newPosition, oldPosition);
   }
-  changeBoxes (newNumberBoxes, oldNumberBoxes) {
+  changeBoxes (newNumberBoxes, oldNumberBoxes=DEFAULT_SELECTED) {
     this.changeBoxesByObjects(newNumberBoxes, oldNumberBoxes);
   }
   changeSelectedByObjects (newPosition, oldPosition) {
@@ -96,7 +113,6 @@ class FrogLit extends LitElement {
   }
   generateObjectBoxes () {
     this.boxesElements = [];
-
     for (let i = 0; i < this.boxes; i++) {
       const box = this.getNewBoxObject(i+1, this.selected);
 

@@ -4,6 +4,7 @@ const CSS_STYLE_FROG = 'frog';
 const DEFAULT_BOXES = 5;
 const DEFAULT_SELECTED = 1;
 const DEFAULT_CONFIG = false;
+
 class FrogLit extends LitElement {
   static get properties() {
     return {
@@ -38,12 +39,15 @@ class FrogLit extends LitElement {
   controlChanges (name, oldval, newval) {
     switch (name) {
       case 'boxes': this.controlChangeBoxes(newval, oldval); break;
-      case 'selected': this.changeSelected(newval, oldval); break;
+      case 'selected': this.controlChangeSelected(newval, oldval); break;
     }
   }
   controlChangeBoxes (newval, oldval) {
     if (oldval!==null) this.changeBoxes(newval, oldval);
     else this.generateObjectBoxes();
+  }
+  controlChangeSelected (newval, oldval) {
+    if (oldval!==null) this.changeSelected(newval, oldval);
   }
   changeSelected (newPosition, oldPosition=DEFAULT_BOXES) {
     this.changeSelectedByObjects(newPosition, oldPosition);
@@ -194,8 +198,6 @@ class FrogLit extends LitElement {
     console.log('this.boxes i : ', this.boxes);
     console.log('nboxes i : ', this.shadowRoot.getElementById('nboxes').value);
     this.changeBoxes(this.shadowRoot.getElementById('nboxes').value, this.boxes);
-    // this.shadowRoot.getElementById('nboxes').value
-    // this.boxes
   }
   changeInputSelection () {
     this.changeSelected(this.shadowRoot.getElementById('pfrog').value, this.selected);

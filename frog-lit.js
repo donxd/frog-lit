@@ -51,8 +51,10 @@ class FrogLit extends LitElement {
       const newPositionSelection = newPosition <= this.boxesElements.length ? newPosition : 1;
 
       this.selected = newPositionSelection;
-      this.set(`boxesElements.${positionFrog-1}`, this.getBoxObject(positionFrog, false));
-      this.set(`boxesElements.${newPositionSelection-1}`, this.getBoxObject(newPositionSelection, true));
+      // this.set(`boxesElements.${positionFrog-1}`, this.getBoxObject(positionFrog, false));
+      // this.set(`boxesElements.${newPositionSelection-1}`, this.getBoxObject(newPositionSelection, true));
+      this.boxesElements[positionFrog-1].selected = false;
+      this.boxesElements[newPositionSelection-1].selected = true;
     }
   }
   changeBoxesByObjects (newNumberBoxes, oldNumberBoxes) {
@@ -165,7 +167,7 @@ class FrogLit extends LitElement {
                 <label for="pfrog">Posición rana: </label>
               </div>
               <div class='cell'>
-                <input type="number" id="pfrog" min="1" .value=${this.selected}>
+                <input type="number" id="pfrog" min="1" .value=${this.selected} @change=${this.changeInputSelection}>
               </div>
             </div>
           </div>
@@ -189,6 +191,9 @@ class FrogLit extends LitElement {
     this.changeBoxes(this.shadowRoot.getElementById('nboxes').value, this.boxes);
     // this.shadowRoot.getElementById('nboxes').value
     // this.boxes
+  }
+  changeInputSelection () {
+    this.changeSelected(this.shadowRoot.getElementById('pfrog').value, this.selected);
   }
   static get styles() {
     return css`

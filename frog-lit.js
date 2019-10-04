@@ -91,11 +91,13 @@ class FrogLit extends LitElement {
     if (positionFrog >= numberBoxes) {
       positionFrog = numberBoxes;
       this.selected = positionFrog;
-      this.set(`boxesElements.${positionFrog-1}`, this.getBoxObject(positionFrog, true));
+      // this.set(`boxesElements.${positionFrog-1}`, this.getBoxObject(positionFrog, true));
+      this.boxesElements[positionFrog-1].selected = true;
     }
 
     for (let i = numberCreatedBoxes-1; i >= numberBoxes; i--) {
-      this.pop('boxesElements');
+      this.boxesElements.pop();
+      // this.pop('boxesElements');
     }
   }
   getPositionFrogAdvanced () {

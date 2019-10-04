@@ -7,17 +7,11 @@ class FrogLit extends LitElement {
       boxes: {
         type: Number,
         attribute: true,
-        // hasChanged(newVal, oldVal) {
-        //   this.changeBoxes(newval, oldval);
-        // },
         reflect: true
       },
       selected: {
         type: Number,
         attribute: true,
-        // hasChanged(newVal, oldVal) {
-        //   this.changeSelected(newval, oldval);
-        // },
         reflect: true
       },
       config: {
@@ -34,11 +28,6 @@ class FrogLit extends LitElement {
     this.config = false;
     this.generateObjectBoxes();
   }
-  // attributeChangedCallback (name, oldval, newval) {
-  //   console.log('attribute change: ', name, newval);
-  //   super.attributeChangedCallback(name, oldval, newval);
-  //   this.requestUpdate();
-  // }
   changeSelected (newPosition, oldPosition) {
     this.changeSelectedByObjects(newPosition, oldPosition);
   }

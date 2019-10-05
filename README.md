@@ -13,3 +13,15 @@ npm i
 `
 npm run serve
 `
+
+## Deployment 
+
+Dependencies:
+
+`
+npm install rollup --global
+`
+
+`
+npm run build
+`
